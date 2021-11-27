@@ -10,20 +10,33 @@ const MoreOptionsButton = () => (
   <i className="fa fa-ellipsis-h more-options-button" />
 );
 
-function Avatar() {
+function Avatar({ hash }) {
+  var url = `https://www.gravatar.com/avatar/${hash}`;
   return (
-    <img
-      src="https://www.gravatar.com/avatar/nothing"
-      className="avatar"
-      alt="avatar"
-    />
+  <img
+  src={url}
+  className="avatar"
+  alt="avatar" />
   );
-}
+  }
+// add the testTweet object, which
+// will serve as our fake data
+var testTweet = {
+  message: "Something about cats.",
+  gravatar: "xyz",
+  author: {
+  handle: "catperson",
+  name: "IAMA Cat Person"
+  },
+  likes: 2,
+  retweets: 0,
+  timestamp: "2016-07-30 21:24:37"
+  }
 
-function Tweet() {
+function Tweet({tweet}) { //1. update the Tweet component to accept a tweet prop
   return (
     <div className="tweet">
-      <Avatar />
+      <Avatar hash={tweet.gravatar}/>
       <div className="content">
         <NameWithHandle />
         <Time />
@@ -52,4 +65,7 @@ function NameWithHandle() {
   );
 }
 
-ReactDOM.render(<Tweet />, document.querySelector("#root"));
+// update the call to ReactDOM.render to pass
+// the testTweet object into the tweet prop.
+
+ReactDOM.render(<Tweet tweet = {testTweet} />, document.querySelector("#root"));
